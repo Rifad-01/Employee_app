@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$EmployeeEntity {
 
- int get id; String get email;@JsonKey(name: "first_name") String get firstName;@JsonKey(name: "last_name") String get lastName; String get avatar;
+ int get id; String get email; String get firstName; String get lastName; String get avatar;
 /// Create a copy of EmployeeEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,7 +45,7 @@ abstract mixin class $EmployeeEntityCopyWith<$Res>  {
   factory $EmployeeEntityCopyWith(EmployeeEntity value, $Res Function(EmployeeEntity) _then) = _$EmployeeEntityCopyWithImpl;
 @useResult
 $Res call({
- int id, String email,@JsonKey(name: "first_name") String firstName,@JsonKey(name: "last_name") String lastName, String avatar
+ int id, String email, String firstName, String lastName, String avatar
 });
 
 
@@ -154,7 +154,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String email, @JsonKey(name: "first_name")  String firstName, @JsonKey(name: "last_name")  String lastName,  String avatar)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String email,  String firstName,  String lastName,  String avatar)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _EmployeeEntity() when $default != null:
 return $default(_that.id,_that.email,_that.firstName,_that.lastName,_that.avatar);case _:
@@ -175,7 +175,7 @@ return $default(_that.id,_that.email,_that.firstName,_that.lastName,_that.avatar
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String email, @JsonKey(name: "first_name")  String firstName, @JsonKey(name: "last_name")  String lastName,  String avatar)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String email,  String firstName,  String lastName,  String avatar)  $default,) {final _that = this;
 switch (_that) {
 case _EmployeeEntity():
 return $default(_that.id,_that.email,_that.firstName,_that.lastName,_that.avatar);case _:
@@ -195,7 +195,7 @@ return $default(_that.id,_that.email,_that.firstName,_that.lastName,_that.avatar
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String email, @JsonKey(name: "first_name")  String firstName, @JsonKey(name: "last_name")  String lastName,  String avatar)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String email,  String firstName,  String lastName,  String avatar)?  $default,) {final _that = this;
 switch (_that) {
 case _EmployeeEntity() when $default != null:
 return $default(_that.id,_that.email,_that.firstName,_that.lastName,_that.avatar);case _:
@@ -210,13 +210,13 @@ return $default(_that.id,_that.email,_that.firstName,_that.lastName,_that.avatar
 
 
 class _EmployeeEntity extends EmployeeEntity {
-  const _EmployeeEntity({required this.id, required this.email, @JsonKey(name: "first_name") required this.firstName, @JsonKey(name: "last_name") required this.lastName, required this.avatar}): super._();
+  const _EmployeeEntity({required this.id, required this.email, required this.firstName, required this.lastName, required this.avatar}): super._();
   
 
 @override final  int id;
 @override final  String email;
-@override@JsonKey(name: "first_name") final  String firstName;
-@override@JsonKey(name: "last_name") final  String lastName;
+@override final  String firstName;
+@override final  String lastName;
 @override final  String avatar;
 
 /// Create a copy of EmployeeEntity
@@ -249,7 +249,7 @@ abstract mixin class _$EmployeeEntityCopyWith<$Res> implements $EmployeeEntityCo
   factory _$EmployeeEntityCopyWith(_EmployeeEntity value, $Res Function(_EmployeeEntity) _then) = __$EmployeeEntityCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String email,@JsonKey(name: "first_name") String firstName,@JsonKey(name: "last_name") String lastName, String avatar
+ int id, String email, String firstName, String lastName, String avatar
 });
 
 

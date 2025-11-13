@@ -1,5 +1,5 @@
-import 'package:employee_app/features/presentation/bloc/auth/auth_bloc.dart';
-import 'package:employee_app/features/presentation/views/home_view.dart';
+import 'package:employee_app/features/authentication/presentation/bloc/auth_bloc.dart';
+import 'package:employee_app/features/employees/presentation/views/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -68,17 +68,15 @@ class LoginView extends StatelessWidget {
                     success: (token) => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => HomeView(token: token),
+                        builder: (context) => HomeView(),
                       ),
                     ),
-
                     orElse: () {},
                   );
                 },
                 builder: (context, state) {
                   return state.maybeWhen(
                     loading: () => CircularProgressIndicator(),
-
                     errorState: (failure) => Center(child: Text("$failure")),
                     orElse: () => ElevatedButton(
                       onPressed: () {

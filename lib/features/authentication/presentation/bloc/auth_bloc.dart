@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:employee_app/core/failure/failure.dart';
-import 'package:employee_app/features/employees/domain/usecases/auth_usecase.dart';
+import 'package:employee_app/features/authentication/domain/usecases/auth_usecase.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'auth_event.dart';

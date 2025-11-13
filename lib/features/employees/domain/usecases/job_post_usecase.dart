@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:employee_app/core/failure/failure.dart';
-import 'package:employee_app/features/employees/domain/entity/employee_entity.dart';
 import 'package:employee_app/features/employees/domain/repositories/job_repository.dart';
 
 class JobPostUsecase {
@@ -8,8 +7,8 @@ class JobPostUsecase {
 
   JobPostUsecase(this.repository);
 
-  Future<Either<Failure, EmployeeEntity>> jobPost({
+  Future<Either<Failure, String>> jobPost({
     required String name,
     required String job,
-  }) => repository.jobPost(name: name, job: job);
+  }) => repository.jobPost(name: name, job: job); 
 }

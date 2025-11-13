@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:employee_app/core/failure/failure.dart';
-import 'package:employee_app/features/employees/domain/repositories/auth_repository.dart';
+import 'package:employee_app/features/authentication/domain/repositories/auth_repository.dart';
 
 class AuthUsecase {
   final AuthRepository repository;

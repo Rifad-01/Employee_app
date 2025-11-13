@@ -1,9 +1,11 @@
 import 'package:employee_app/core/handlers/di/service_locator.dart';
-import 'package:employee_app/features/employees/domain/usecases/auth_usecase.dart';
-import 'package:employee_app/features/employees/domain/usecases/users_usecase.dart';
-import 'package:employee_app/features/presentation/bloc/auth/auth_bloc.dart';
+import 'package:employee_app/features/authentication/domain/usecases/auth_usecase.dart';
+import 'package:employee_app/features/authentication/presentation/bloc/auth_bloc.dart';
+import 'package:employee_app/features/authentication/presentation/views/login_view.dart';
+import 'package:employee_app/features/employees/domain/usecases/job_post_usecase.dart';
+import 'package:employee_app/features/employees/domain/usecases/employee_usecase.dart';
+import 'package:employee_app/features/presentation/bloc/job_post/job_post_bloc.dart';
 import 'package:employee_app/features/presentation/bloc/users/users_bloc.dart';
-import 'package:employee_app/features/presentation/views/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,7 +22,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => AuthBloc(getIt<AuthUsecase>())),
-        BlocProvider(create: (context) => UsersBloc(getIt<UsersUsecase>())),
+        BlocProvider(create: (context) => UsersBloc(getIt<EmployeeUsecase>())),
+        BlocProvider(create: (context) => JobPostBloc(getIt<JobPostUsecase>())),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

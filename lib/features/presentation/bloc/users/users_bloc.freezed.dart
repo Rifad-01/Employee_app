@@ -61,13 +61,12 @@ extension UsersEventPatterns on UsersEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Started value)?  started,TResult Function( FetchUser value)?  fetchUser,TResult Function( LoadedUsers value)?  loadedUsers,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Started value)?  started,TResult Function( FetchUser value)?  fetchUser,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case Started() when started != null:
 return started(_that);case FetchUser() when fetchUser != null:
-return fetchUser(_that);case LoadedUsers() when loadedUsers != null:
-return loadedUsers(_that);case _:
+return fetchUser(_that);case _:
   return orElse();
 
 }
@@ -85,13 +84,12 @@ return loadedUsers(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Started value)  started,required TResult Function( FetchUser value)  fetchUser,required TResult Function( LoadedUsers value)  loadedUsers,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Started value)  started,required TResult Function( FetchUser value)  fetchUser,}){
 final _that = this;
 switch (_that) {
 case Started():
 return started(_that);case FetchUser():
-return fetchUser(_that);case LoadedUsers():
-return loadedUsers(_that);case _:
+return fetchUser(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -108,13 +106,12 @@ return loadedUsers(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Started value)?  started,TResult? Function( FetchUser value)?  fetchUser,TResult? Function( LoadedUsers value)?  loadedUsers,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Started value)?  started,TResult? Function( FetchUser value)?  fetchUser,}){
 final _that = this;
 switch (_that) {
 case Started() when started != null:
 return started(_that);case FetchUser() when fetchUser != null:
-return fetchUser(_that);case LoadedUsers() when loadedUsers != null:
-return loadedUsers(_that);case _:
+return fetchUser(_that);case _:
   return null;
 
 }
@@ -131,12 +128,11 @@ return loadedUsers(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( List<EmployeeEntity> employee)?  fetchUser,TResult Function( List<EmployeeEntity> employee)?  loadedUsers,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( int page)?  fetchUser,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Started() when started != null:
 return started();case FetchUser() when fetchUser != null:
-return fetchUser(_that.employee);case LoadedUsers() when loadedUsers != null:
-return loadedUsers(_that.employee);case _:
+return fetchUser(_that.page);case _:
   return orElse();
 
 }
@@ -154,12 +150,11 @@ return loadedUsers(_that.employee);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( List<EmployeeEntity> employee)  fetchUser,required TResult Function( List<EmployeeEntity> employee)  loadedUsers,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( int page)  fetchUser,}) {final _that = this;
 switch (_that) {
 case Started():
 return started();case FetchUser():
-return fetchUser(_that.employee);case LoadedUsers():
-return loadedUsers(_that.employee);case _:
+return fetchUser(_that.page);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -176,12 +171,11 @@ return loadedUsers(_that.employee);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( List<EmployeeEntity> employee)?  fetchUser,TResult? Function( List<EmployeeEntity> employee)?  loadedUsers,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( int page)?  fetchUser,}) {final _that = this;
 switch (_that) {
 case Started() when started != null:
 return started();case FetchUser() when fetchUser != null:
-return fetchUser(_that.employee);case LoadedUsers() when loadedUsers != null:
-return loadedUsers(_that.employee);case _:
+return fetchUser(_that.page);case _:
   return null;
 
 }
@@ -231,16 +225,10 @@ String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
 
 
 class FetchUser with DiagnosticableTreeMixin implements UsersEvent {
-  const FetchUser(final  List<EmployeeEntity> employee): _employee = employee;
+  const FetchUser({required this.page});
   
 
- final  List<EmployeeEntity> _employee;
- List<EmployeeEntity> get employee {
-  if (_employee is EqualUnmodifiableListView) return _employee;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_employee);
-}
-
+ final  int page;
 
 /// Create a copy of UsersEvent
 /// with the given fields replaced by the non-null parameter values.
@@ -253,21 +241,21 @@ $FetchUserCopyWith<FetchUser> get copyWith => _$FetchUserCopyWithImpl<FetchUser>
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'UsersEvent.fetchUser'))
-    ..add(DiagnosticsProperty('employee', employee));
+    ..add(DiagnosticsProperty('page', page));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FetchUser&&const DeepCollectionEquality().equals(other._employee, _employee));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FetchUser&&(identical(other.page, page) || other.page == page));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_employee));
+int get hashCode => Object.hash(runtimeType,page);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'UsersEvent.fetchUser(employee: $employee)';
+  return 'UsersEvent.fetchUser(page: $page)';
 }
 
 
@@ -278,7 +266,7 @@ abstract mixin class $FetchUserCopyWith<$Res> implements $UsersEventCopyWith<$Re
   factory $FetchUserCopyWith(FetchUser value, $Res Function(FetchUser) _then) = _$FetchUserCopyWithImpl;
 @useResult
 $Res call({
- List<EmployeeEntity> employee
+ int page
 });
 
 
@@ -295,88 +283,10 @@ class _$FetchUserCopyWithImpl<$Res>
 
 /// Create a copy of UsersEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? employee = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? page = null,}) {
   return _then(FetchUser(
-null == employee ? _self._employee : employee // ignore: cast_nullable_to_non_nullable
-as List<EmployeeEntity>,
-  ));
-}
-
-
-}
-
-/// @nodoc
-
-
-class LoadedUsers with DiagnosticableTreeMixin implements UsersEvent {
-  const LoadedUsers(final  List<EmployeeEntity> employee): _employee = employee;
-  
-
- final  List<EmployeeEntity> _employee;
- List<EmployeeEntity> get employee {
-  if (_employee is EqualUnmodifiableListView) return _employee;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_employee);
-}
-
-
-/// Create a copy of UsersEvent
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$LoadedUsersCopyWith<LoadedUsers> get copyWith => _$LoadedUsersCopyWithImpl<LoadedUsers>(this, _$identity);
-
-
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
-    ..add(DiagnosticsProperty('type', 'UsersEvent.loadedUsers'))
-    ..add(DiagnosticsProperty('employee', employee));
-}
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoadedUsers&&const DeepCollectionEquality().equals(other._employee, _employee));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_employee));
-
-@override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'UsersEvent.loadedUsers(employee: $employee)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $LoadedUsersCopyWith<$Res> implements $UsersEventCopyWith<$Res> {
-  factory $LoadedUsersCopyWith(LoadedUsers value, $Res Function(LoadedUsers) _then) = _$LoadedUsersCopyWithImpl;
-@useResult
-$Res call({
- List<EmployeeEntity> employee
-});
-
-
-
-
-}
-/// @nodoc
-class _$LoadedUsersCopyWithImpl<$Res>
-    implements $LoadedUsersCopyWith<$Res> {
-  _$LoadedUsersCopyWithImpl(this._self, this._then);
-
-  final LoadedUsers _self;
-  final $Res Function(LoadedUsers) _then;
-
-/// Create a copy of UsersEvent
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? employee = null,}) {
-  return _then(LoadedUsers(
-null == employee ? _self._employee : employee // ignore: cast_nullable_to_non_nullable
-as List<EmployeeEntity>,
+page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 
@@ -506,13 +416,13 @@ return success(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( Failure failure)?  errorState,TResult Function( List<EmployeeEntity> employees)?  success,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function( int page)?  loading,TResult Function( Failure failure,  int page)?  errorState,TResult Function( List<EmployeeEntity> employees,  int page,  int totalPage)?  success,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
-return loading();case ErrorState() when errorState != null:
-return errorState(_that.failure);case Success() when success != null:
-return success(_that.employees);case _:
+return loading(_that.page);case ErrorState() when errorState != null:
+return errorState(_that.failure,_that.page);case Success() when success != null:
+return success(_that.employees,_that.page,_that.totalPage);case _:
   return orElse();
 
 }
@@ -530,13 +440,13 @@ return success(_that.employees);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( Failure failure)  errorState,required TResult Function( List<EmployeeEntity> employees)  success,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function( int page)  loading,required TResult Function( Failure failure,  int page)  errorState,required TResult Function( List<EmployeeEntity> employees,  int page,  int totalPage)  success,}) {final _that = this;
 switch (_that) {
 case Initial():
 return initial();case Loading():
-return loading();case ErrorState():
-return errorState(_that.failure);case Success():
-return success(_that.employees);case _:
+return loading(_that.page);case ErrorState():
+return errorState(_that.failure,_that.page);case Success():
+return success(_that.employees,_that.page,_that.totalPage);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -553,13 +463,13 @@ return success(_that.employees);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( Failure failure)?  errorState,TResult? Function( List<EmployeeEntity> employees)?  success,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function( int page)?  loading,TResult? Function( Failure failure,  int page)?  errorState,TResult? Function( List<EmployeeEntity> employees,  int page,  int totalPage)?  success,}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
-return loading();case ErrorState() when errorState != null:
-return errorState(_that.failure);case Success() when success != null:
-return success(_that.employees);case _:
+return loading(_that.page);case ErrorState() when errorState != null:
+return errorState(_that.failure,_that.page);case Success() when success != null:
+return success(_that.employees,_that.page,_that.totalPage);case _:
   return null;
 
 }
@@ -609,48 +519,83 @@ String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
 
 
 class Loading with DiagnosticableTreeMixin implements UsersState {
-  const Loading();
+  const Loading(this.page);
   
 
+ final  int page;
 
-
+/// Create a copy of UsersState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LoadingCopyWith<Loading> get copyWith => _$LoadingCopyWithImpl<Loading>(this, _$identity);
 
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'UsersState.loading'))
-    ;
+    ..add(DiagnosticsProperty('page', page));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loading);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loading&&(identical(other.page, page) || other.page == page));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,page);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'UsersState.loading()';
+  return 'UsersState.loading(page: $page)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class $LoadingCopyWith<$Res> implements $UsersStateCopyWith<$Res> {
+  factory $LoadingCopyWith(Loading value, $Res Function(Loading) _then) = _$LoadingCopyWithImpl;
+@useResult
+$Res call({
+ int page
+});
 
 
+
+
+}
+/// @nodoc
+class _$LoadingCopyWithImpl<$Res>
+    implements $LoadingCopyWith<$Res> {
+  _$LoadingCopyWithImpl(this._self, this._then);
+
+  final Loading _self;
+  final $Res Function(Loading) _then;
+
+/// Create a copy of UsersState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? page = null,}) {
+  return _then(Loading(
+null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
 
 /// @nodoc
 
 
 class ErrorState with DiagnosticableTreeMixin implements UsersState {
-  const ErrorState(this.failure);
+  const ErrorState(this.failure, this.page);
   
 
  final  Failure failure;
+ final  int page;
 
 /// Create a copy of UsersState
 /// with the given fields replaced by the non-null parameter values.
@@ -663,21 +608,21 @@ $ErrorStateCopyWith<ErrorState> get copyWith => _$ErrorStateCopyWithImpl<ErrorSt
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'UsersState.errorState'))
-    ..add(DiagnosticsProperty('failure', failure));
+    ..add(DiagnosticsProperty('failure', failure))..add(DiagnosticsProperty('page', page));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ErrorState&&(identical(other.failure, failure) || other.failure == failure));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ErrorState&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.page, page) || other.page == page));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,failure);
+int get hashCode => Object.hash(runtimeType,failure,page);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'UsersState.errorState(failure: $failure)';
+  return 'UsersState.errorState(failure: $failure, page: $page)';
 }
 
 
@@ -688,7 +633,7 @@ abstract mixin class $ErrorStateCopyWith<$Res> implements $UsersStateCopyWith<$R
   factory $ErrorStateCopyWith(ErrorState value, $Res Function(ErrorState) _then) = _$ErrorStateCopyWithImpl;
 @useResult
 $Res call({
- Failure failure
+ Failure failure, int page
 });
 
 
@@ -705,10 +650,11 @@ class _$ErrorStateCopyWithImpl<$Res>
 
 /// Create a copy of UsersState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? failure = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? failure = null,Object? page = null,}) {
   return _then(ErrorState(
 null == failure ? _self.failure : failure // ignore: cast_nullable_to_non_nullable
-as Failure,
+as Failure,null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 
@@ -719,7 +665,7 @@ as Failure,
 
 
 class Success with DiagnosticableTreeMixin implements UsersState {
-  const Success(final  List<EmployeeEntity> employees): _employees = employees;
+  const Success(final  List<EmployeeEntity> employees, this.page, this.totalPage): _employees = employees;
   
 
  final  List<EmployeeEntity> _employees;
@@ -729,6 +675,8 @@ class Success with DiagnosticableTreeMixin implements UsersState {
   return EqualUnmodifiableListView(_employees);
 }
 
+ final  int page;
+ final  int totalPage;
 
 /// Create a copy of UsersState
 /// with the given fields replaced by the non-null parameter values.
@@ -741,21 +689,21 @@ $SuccessCopyWith<Success> get copyWith => _$SuccessCopyWithImpl<Success>(this, _
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'UsersState.success'))
-    ..add(DiagnosticsProperty('employees', employees));
+    ..add(DiagnosticsProperty('employees', employees))..add(DiagnosticsProperty('page', page))..add(DiagnosticsProperty('totalPage', totalPage));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Success&&const DeepCollectionEquality().equals(other._employees, _employees));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Success&&const DeepCollectionEquality().equals(other._employees, _employees)&&(identical(other.page, page) || other.page == page)&&(identical(other.totalPage, totalPage) || other.totalPage == totalPage));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_employees));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_employees),page,totalPage);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'UsersState.success(employees: $employees)';
+  return 'UsersState.success(employees: $employees, page: $page, totalPage: $totalPage)';
 }
 
 
@@ -766,7 +714,7 @@ abstract mixin class $SuccessCopyWith<$Res> implements $UsersStateCopyWith<$Res>
   factory $SuccessCopyWith(Success value, $Res Function(Success) _then) = _$SuccessCopyWithImpl;
 @useResult
 $Res call({
- List<EmployeeEntity> employees
+ List<EmployeeEntity> employees, int page, int totalPage
 });
 
 
@@ -783,10 +731,12 @@ class _$SuccessCopyWithImpl<$Res>
 
 /// Create a copy of UsersState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? employees = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? employees = null,Object? page = null,Object? totalPage = null,}) {
   return _then(Success(
 null == employees ? _self._employees : employees // ignore: cast_nullable_to_non_nullable
-as List<EmployeeEntity>,
+as List<EmployeeEntity>,null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as int,null == totalPage ? _self.totalPage : totalPage // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 
