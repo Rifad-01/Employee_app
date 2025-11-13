@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:employee_app/core/failure/failure.dart';
 import 'package:employee_app/features/employees/data/data_source/employee_data_source.dart';
 import 'package:employee_app/features/employees/domain/entity/employee_list_entity/employee_list_entity.dart';
-import 'package:employee_app/features/employees/domain/entity/employee_entity/employee_entity.dart';
 import 'package:employee_app/features/employees/domain/repositories/employee_repository.dart';
 
 class UsersRepositoryImpl implements EmployeeRepository {

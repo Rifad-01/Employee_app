@@ -1,4 +1,4 @@
-import 'package:employee_app/features/employees/data/models/data_model/employee_list_model.dart';
+import 'package:employee_app/features/employees/data/models/employee_list_model/employee_list_model.dart';
 import 'package:employee_app/features/employees/data/models/employee_model/employee_model.dart';
 import 'package:employee_app/features/employees/domain/entity/employee_entity/employee_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
