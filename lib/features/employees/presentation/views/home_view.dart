@@ -1,7 +1,6 @@
 import 'package:employee_app/features/authentication/presentation/bloc/auth_bloc.dart';
+import 'package:employee_app/features/employees/presentation/bloc/employee_bloc.dart';
 import 'package:employee_app/features/employees/presentation/views/job_post_view.dart';
-import 'package:employee_app/features/presentation/bloc/users/users_bloc.dart'
-    hide Loading;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,18 +17,18 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    context.read<UsersBloc>().add(FetchUser(page: 1));
+    context.read<EmployeeBloc>().add(FetchEmployees(page: 1));
 
     scrollController.addListener(() {
       debugPrint("Scroll Position: ${scrollController.position.pixels}");
       if (scrollController.position.pixels + 20 >=
           scrollController.position.maxScrollExtent) {
-        debugPrint("${context.read<UsersBloc>().state}");
-        context.read<UsersBloc>().state.maybeWhen(
+        debugPrint("${context.read<EmployeeBloc>().state}");
+        context.read<EmployeeBloc>().state.maybeWhen(
           orElse: () => {},
-          success: (employees, page, totalPage) {
+          employeeFetchingSuccess: (employees, page, totalPage) {
             if (page != totalPage) {
-              context.read<UsersBloc>().add(FetchUser(page: page + 1));
+              context.read<EmployeeBloc>().add(FetchEmployees(page: page + 1));
             }
           },
         );
@@ -66,60 +65,63 @@ class _HomeViewState extends State<HomeView> {
       body: ListView(
         controller: scrollController,
         children: [
-          BlocBuilder<UsersBloc, UsersState>(
+          BlocBuilder<EmployeeBloc, EmployeeState>(
             buildWhen: (previous, current) => current.maybeWhen(
               orElse: () => false,
-              loading: (page) => page == 1,
-              errorState: (failure, page) => page == 1,
-              success: (employees, page, totalPage) => true,
+              employeeFetching: (page) => page == 1,
+              employeeFetchingFailed: (failure, page) => page == 1,
+              employeeFetchingSuccess: (employees, page, totalPage) => true,
             ),
             builder: (context, state) {
               return state.maybeWhen(
-                loading: (page) => Center(child: CircularProgressIndicator()),
-                errorState: (failure, page) => Center(
-                  child: Text(
-                    "$failure",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                success: (employees, page, totalPage) => ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: employees.length,
-                  itemBuilder: (context, index) {
-                    final empl = employees[index];
-                    return Container(
-                      color: Colors.red,
-                      height: 200,
-                      width: double.infinity,
-                      child: ListTile(
-                        title: Text(empl.firstName),
-                        subtitle: Text(empl.email),
-                        trailing: Icon(Icons.arrow_forward_ios),
-                      ),
-                    );
-                  },
-                ),
+                employeeFetching: (page) =>
+                    Center(child: CircularProgressIndicator()),
+                // employeeFetchingFailed: (failure, page) => Center(
+                //   child: Text(
+                //     "$failure",
+                //     style: TextStyle(color: Colors.white),
+                //   ),
+                // ),
+                employeeFetchingSuccess: (employees, page, totalPage) =>
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: employees.length,
+                      itemBuilder: (context, index) {
+                        final empl = employees[index];
+                        return Container(
+                          color: Colors.red,
+                          height: 200,
+                          width: double.infinity,
+                          child: ListTile(
+                            title: Text(empl.firstName),
+                            subtitle: Text(empl.email),
+                            trailing: Icon(Icons.arrow_forward_ios),
+                          ),
+                        );
+                      },
+                    ),
                 orElse: () => Center(child: SizedBox()),
               );
             },
           ),
-          BlocBuilder<UsersBloc, UsersState>(
+          BlocBuilder<EmployeeBloc, EmployeeState>(
             buildWhen: (previous, current) => current.maybeWhen(
               orElse: () => false,
-              loading: (page) => page != 1,
-              errorState: (failure, page) => page != 1,
-              success: (employees, page, totalPage) => true,
+              employeeFetching: (page) => page != 1,
+              employeeFetchingFailed: (failure, page) => page != 1,
+              employeeFetchingSuccess: (employees, page, totalPage) => true,
             ),
             builder: (context, state) {
               return state.maybeWhen(
-                loading: (page) => Center(child: CircularProgressIndicator()),
-                errorState: (failure, page) => Center(
-                  child: Text(
-                    "$failure",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
+                employeeFetching: (page) =>
+                    Center(child: CircularProgressIndicator()),
+                // employeeFetchingFailed: (failure, page) => Center(
+                //   child: Text(
+                //     "$failure",
+                //     style: TextStyle(color: Colors.white),
+                //   ),
+                // ),
                 orElse: () => Center(child: SizedBox()),
               );
             },

@@ -122,11 +122,11 @@ return creatingEmployees(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( int page)?  fetchEmployees,TResult Function()?  creatingEmployees,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( int page)?  fetchEmployees,TResult Function( String empName,  String jobTitle)?  creatingEmployees,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case FetchEmployees() when fetchEmployees != null:
 return fetchEmployees(_that.page);case CreatingEmployees() when creatingEmployees != null:
-return creatingEmployees();case _:
+return creatingEmployees(_that.empName,_that.jobTitle);case _:
   return orElse();
 
 }
@@ -144,11 +144,11 @@ return creatingEmployees();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( int page)  fetchEmployees,required TResult Function()  creatingEmployees,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( int page)  fetchEmployees,required TResult Function( String empName,  String jobTitle)  creatingEmployees,}) {final _that = this;
 switch (_that) {
 case FetchEmployees():
 return fetchEmployees(_that.page);case CreatingEmployees():
-return creatingEmployees();case _:
+return creatingEmployees(_that.empName,_that.jobTitle);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -165,11 +165,11 @@ return creatingEmployees();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( int page)?  fetchEmployees,TResult? Function()?  creatingEmployees,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( int page)?  fetchEmployees,TResult? Function( String empName,  String jobTitle)?  creatingEmployees,}) {final _that = this;
 switch (_that) {
 case FetchEmployees() when fetchEmployees != null:
 return fetchEmployees(_that.page);case CreatingEmployees() when creatingEmployees != null:
-return creatingEmployees();case _:
+return creatingEmployees(_that.empName,_that.jobTitle);case _:
   return null;
 
 }
@@ -181,7 +181,7 @@ return creatingEmployees();case _:
 
 
 class FetchEmployees implements EmployeeEvent {
-  const FetchEmployees(this.page);
+  const FetchEmployees({required this.page});
   
 
  final  int page;
@@ -235,7 +235,7 @@ class _$FetchEmployeesCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? page = null,}) {
   return _then(FetchEmployees(
-null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }
@@ -247,33 +247,69 @@ as int,
 
 
 class CreatingEmployees implements EmployeeEvent {
-  const CreatingEmployees();
+  const CreatingEmployees({required this.empName, required this.jobTitle});
   
 
+ final  String empName;
+ final  String jobTitle;
 
-
+/// Create a copy of EmployeeEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$CreatingEmployeesCopyWith<CreatingEmployees> get copyWith => _$CreatingEmployeesCopyWithImpl<CreatingEmployees>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreatingEmployees);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreatingEmployees&&(identical(other.empName, empName) || other.empName == empName)&&(identical(other.jobTitle, jobTitle) || other.jobTitle == jobTitle));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,empName,jobTitle);
 
 @override
 String toString() {
-  return 'EmployeeEvent.creatingEmployees()';
+  return 'EmployeeEvent.creatingEmployees(empName: $empName, jobTitle: $jobTitle)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class $CreatingEmployeesCopyWith<$Res> implements $EmployeeEventCopyWith<$Res> {
+  factory $CreatingEmployeesCopyWith(CreatingEmployees value, $Res Function(CreatingEmployees) _then) = _$CreatingEmployeesCopyWithImpl;
+@useResult
+$Res call({
+ String empName, String jobTitle
+});
 
 
+
+
+}
+/// @nodoc
+class _$CreatingEmployeesCopyWithImpl<$Res>
+    implements $CreatingEmployeesCopyWith<$Res> {
+  _$CreatingEmployeesCopyWithImpl(this._self, this._then);
+
+  final CreatingEmployees _self;
+  final $Res Function(CreatingEmployees) _then;
+
+/// Create a copy of EmployeeEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? empName = null,Object? jobTitle = null,}) {
+  return _then(CreatingEmployees(
+empName: null == empName ? _self.empName : empName // ignore: cast_nullable_to_non_nullable
+as String,jobTitle: null == jobTitle ? _self.jobTitle : jobTitle // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
 
 /// @nodoc
 mixin _$EmployeeState {

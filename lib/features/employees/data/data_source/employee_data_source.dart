@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:employee_app/core/failure/failure.dart';
-import 'package:employee_app/features/employees/data/models/data_model/employee_list_model.dart';
+import 'package:employee_app/features/employees/data/models/employee_list_model/employee_list_model.dart';
 import 'package:http/http.dart' as http;
 
 abstract class EmployeeDataSource {

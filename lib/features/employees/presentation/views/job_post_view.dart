@@ -1,4 +1,4 @@
-import 'package:employee_app/features/presentation/bloc/job_post/job_post_bloc.dart';
+import 'package:employee_app/features/employees/presentation/bloc/employee_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -40,36 +40,15 @@ class JobPostView extends StatelessWidget {
 
           SizedBox(
             width: double.infinity,
-            child: BlocBuilder<JobPostBloc, JobPostState>(
+            child: BlocBuilder<EmployeeBloc, EmployeeState>(
               builder: (context, state) {
                 return state.maybeWhen(
-                  errorState: (failure) {
-                    return Text('$failure');
-                  },
-                  success: (jobPost) => SnackBar(
-                    backgroundColor: Colors.grey,
-                    content: const Text(
-                      "Successfully Added ..!!!",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    behavior: SnackBarBehavior.floating,
-                    margin: const EdgeInsets.all(16),
-                    duration: const Duration(seconds: 2),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-
                   orElse: () => ElevatedButton(
                     onPressed: () {
-                      context.read<JobPostBloc>().add(
-                        Adding(
-                          name: nameController.text,
-                          job: jobController.text,
+                      context.read<EmployeeBloc>().add(
+                        CreatingEmployees(
+                          empName: nameController.text,
+                          jobTitle: jobController.text,
                         ),
                       );
                       Navigator.pop(context);

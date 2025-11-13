@@ -10,6 +10,7 @@ import 'package:employee_app/features/employees/domain/repositories/job_reposito
 import 'package:employee_app/features/employees/domain/repositories/employee_repository.dart';
 import 'package:employee_app/features/employees/domain/usecases/job_post_usecase.dart';
 import 'package:employee_app/features/employees/domain/usecases/employee_usecase.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
@@ -41,9 +42,15 @@ Future<void> setupServiceLocator() async {
 
   getIt.registerSingleton<AuthUsecase>(AuthUsecase(getIt<AuthRepository>()));
 
-  getIt.registerSingleton<EmployeeUsecase>(EmployeeUsecase(getIt<EmployeeRepository>()));
+  getIt.registerSingleton<EmployeeUsecase>(
+    EmployeeUsecase(getIt<EmployeeRepository>()),
+  );
 
   getIt.registerSingleton<JobPostUsecase>(
     JobPostUsecase(getIt<JobRepository>()),
+  );
+
+  getIt.registerLazySingleton<GlobalKey<NavigatorState>>(
+    () => GlobalKey<NavigatorState>(),
   );
 }
