@@ -26,7 +26,7 @@ class JobPostDataSourceImpl implements JobPostDataSource {
       );
       if (response.statusCode == 201) {
         final result = jsonDecode(response.body);
-        return result;
+        return result['id'];
       }
       throw UnknownFailure();
     } on UnauthorizedFailure {
