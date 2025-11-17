@@ -1,7 +1,12 @@
-# employee_app
+# Flutter Clean Architecture + BLoC State Management
 
-A new Flutter project.
+This project follows **Clean Architecture** principles and uses **BLoC (Business Logic Component)** for predictable, testable, and scalable state management.
 
-## Getting Started
+---
+
+##  Project Structure (Clean Architecture)
+## State Management (Bloc)
+
+
 
 
