@@ -3,12 +3,15 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i5;
 
-import 'package:employee_app/features/authentication/data/datasource/auth_data_source.dart'
+import 'package:dartz/dartz.dart' as _i3;
+import 'package:employee_app/core/failure/failure.dart' as _i6;
+import 'package:employee_app/features/authentication/domain/repositories/auth_repository.dart'
     as _i2;
+import 'package:employee_app/features/authentication/domain/usecases/auth_usecase.dart'
+    as _i4;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -25,23 +28,45 @@ import 'package:mockito/src/dummies.dart' as _i4;
 // ignore_for_file: subtype_of_sealed_class
 // ignore_for_file: invalid_use_of_internal_member
 
-/// A class which mocks [AuthDataSource].
+class _FakeAuthRepository_0 extends _i1.SmartFake
+    implements _i2.AuthRepository {
+  _FakeAuthRepository_0(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
+class _FakeEither_1<L, R> extends _i1.SmartFake implements _i3.Either<L, R> {
+  _FakeEither_1(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
+/// A class which mocks [AuthUsecase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthDataSource extends _i1.Mock implements _i2.AuthDataSource {
-  MockAuthDataSource() {
+class MockAuthUsecase extends _i1.Mock implements _i4.AuthUsecase {
+  MockAuthUsecase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<String> login({
+  _i2.AuthRepository get repository =>
+      (super.noSuchMethod(
+            Invocation.getter(#repository),
+            returnValue: _FakeAuthRepository_0(
+              this,
+              Invocation.getter(#repository),
+            ),
+          )
+          as _i2.AuthRepository);
+
+  @override
+  _i5.Future<_i3.Either<_i6.Failure, String>> login({
     required String? email,
     required String? password,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#login, [], {#email: email, #password: password}),
-            returnValue: _i3.Future<String>.value(
-              _i4.dummyValue<String>(
+            returnValue: _i5.Future<_i3.Either<_i6.Failure, String>>.value(
+              _FakeEither_1<_i6.Failure, String>(
                 this,
                 Invocation.method(#login, [], {
                   #email: email,
@@ -50,5 +75,5 @@ class MockAuthDataSource extends _i1.Mock implements _i2.AuthDataSource {
               ),
             ),
           )
-          as _i3.Future<String>);
+          as _i5.Future<_i3.Either<_i6.Failure, String>>);
 }

@@ -28,6 +28,8 @@ class TestData {
     data: testEmployee,
   );
 
+  // static 
+
   static final unautherisedFailure = UnauthorizedFailure(
     message: "Unauthorized Please check your username and password",
   );

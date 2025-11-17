@@ -72,13 +72,20 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
     result.fold(
       (e) {
         // emit(EmployeeFetchingFailed(e, page));
-        MessageHandling.showSnackBar(
-          navigatorKey.currentContext!,
-          e.toString(),
-        );
+        debugPrint('$e');
+        if (navigatorKey.currentContext != null) {
+          MessageHandling.showSnackBar(
+            navigatorKey.currentContext!,
+            e.toString(),
+          );
+        }
       },
       (user) {
-        MessageHandling.showSnackBar(navigatorKey.currentContext!, user);
+        debugPrint(user);
+
+        if (navigatorKey.currentContext != null) {
+          MessageHandling.showSnackBar(navigatorKey.currentContext!, user);
+        }
       },
     );
   }
